@@ -1,0 +1,28 @@
+{
+  "name": "multilink-scrape",
+  "version": "1.0.0",
+  "description": "saves lots of links to a json file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakecrump/multilink-scrape.git"
+  },
+  "keywords": [
+    "x-ray",
+    "request",
+    "maybe",
+    "others"
+  ],
+  "author": "Jake and Josh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakecrump/multilink-scrape/issues"
+  },
+  "homepage": "https://github.com/jakecrump/multilink-scrape#readme",
+  "dependencies": {
+    "request": "^2.85.0"
+  }
+}
