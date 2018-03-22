@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/jakecrump/multilink-scrape#readme",
   "dependencies": {
+    "async": "^2.6.0",
+    "cheerio": "^1.0.0-rc.2",
     "request": "^2.85.0"
   }
 }
