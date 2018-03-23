@@ -4,23 +4,49 @@ const cheerio = require('cheerio');
 const links = require('./data/links.json');
 const async = require('async');
 
-let fullLoad = {};
+let fullLoad = [];
+
 
 async.forEachOf(links, (value, key, callback) =>{
+
 	request({url:value.url, jar:true}, (err, res, body)=>{
 		if (err) throw err;
 		const $ = cheerio.load(body);
-		const hed = $('meta[property="og:title"]').attr('content');
-		const blurb = $('meta[property="og:description"]').attr('content');
-		const link = links[key].url;
-		const image = $('meta[property="og:image"]').attr('content');
-		const payload = ({"order":key+1, "hed":hed, "blurb":blurb, "url":link, "image":image});
+
 		
-		fullLoad[key] = (payload);
-		console.log(`Pulling: ${hed}`);
+
+
+		$('.list-group-item-heading').each((i, obj)=>{
+				const p = $(obj).next('p').text();
+				const author = p.split(',')[0].trim();
+				const orgFull = p.split(',')[1];
+				console.log(orgFull)
+
+				let org;
+
+				try{
+					org = orgFull.split('(')[0].trim();
+				}
+
+				catch(err){
+					org = orgFull;
+				}
+
+
+			// console.log(key, $(obj).sibling('p').text().trim());
+				fullLoad.push(({"index":key, "headline":$(obj).text().trim(), "author": author, "org": org}))
+				console.log(key)
+			
+			// catch(err){
+			// 	fullLoad.key.i = ({"index":null})
+			// }
+		
+		})
+
 		callback();
 	});
+
 }, err =>{
 	if (err) throw err;
-	fs.writeFileSync('data/moreStories.json', JSON.stringify(Object.values(fullLoad), null, 3));
+	fs.writeFileSync('data/moreStories.json', JSON.stringify(fullLoad, null, 3));
 });
